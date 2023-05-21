@@ -57,3 +57,25 @@ def show_user(user_id):
 
 	user = User.query.get_or_404(user_id)
 	return render_template('details.html', user=user)
+
+@app.route('/users/<int:user_id>/edit')
+def edit_user(user_id):
+	"""Shows edit form for user"""
+
+	user = User.query.get_or_404(user_id)
+	return render_template('edit_user.html', user=user)
+
+@app.route('/users/<int:user_id>/edit', methods=['POST'])
+def update_user(user_id):
+	"""Updates user from edit form to user list"""
+
+	user = User.query.get_or_404(user_id)
+
+	user.first_name = request.form['first_name']
+	user.last_name = request.form['last_name']
+	user.image_url = request.form['img_url']
+
+	db.session.add(user)
+	db.session.commit()	
+
+	return redirect('/users')
