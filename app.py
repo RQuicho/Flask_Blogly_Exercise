@@ -15,8 +15,6 @@ debug = DebugToolbarExtension(app)
 
 connect_db(app)
 
-# db.create_all()
-
 
 @app.route('/')
 def redirect_to_list_users():
